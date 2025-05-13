@@ -90,6 +90,7 @@ header{
     width: 100%;
     background-image: url("img/fundooo.jpeg");
     background-size: cover;
+    
  }
 
 
@@ -98,7 +99,7 @@ header{
 display: flex;
 justify-content: center;
 align-items: center;
-height: 60vh;
+height: 50vh;
     font-size: 25px;
  }
  #sobre-pooh {
@@ -118,16 +119,16 @@ height: 60vh;
  .personagens{
     display: flex;
     justify-content: center;
+    align-items: center;
     justify-items: center;
-    margin-top: 50px;
-    height: 400px;
-    width: 750px;
+
+    width: 100%;
  }
 
  .card{
-    height: 120px;
+    height: 130px;
     display: flex;
-  
+  margin: auto;
     justify-content: center;
     justify-items: center;
     text-wrap: auto;
@@ -145,6 +146,8 @@ height: 60vh;
         overflow: hidden;
         text-wrap: auto;
         text-align: center;
+        position: relative;
+        
     }
 
     .content .card{
@@ -157,12 +160,14 @@ height: 60vh;
         position: absolute;
         bottom: 20px;
         display: flex;
+       
+        margin-left: 28%;
     }
 
     .bar{
         width: 70px;
         height: 17px;
-        border: 2px solid rgb(255, 255, 4);
+        border: 2px solid rgb(20, 0, 40);
         margin: 6px;
         border-radius: 5px;
         cursor: pointer;
@@ -171,9 +176,15 @@ height: 60vh;
 
     }
 
+    .slide h3{
+        text-align: center;
+        padding: 20px;
+        margin: 5px;
+    }
 
     .bar:hover{
-        background-color: rgb(255, 171, 62);
+      
+        background-color: rgb(214, 187, 245);
     }
 
     input{
@@ -189,7 +200,7 @@ height: 60vh;
 
     .slide{
         width: 20%;
-        transition: .3s;
+        transition: .6s;
     }
     #slide1:checked ~ .s1{
         margin-left: 0;
