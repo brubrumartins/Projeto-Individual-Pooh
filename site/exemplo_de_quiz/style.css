@@ -24,82 +24,7 @@ body {
     color: var(--new-black);
      background-color: #F7FAE7;
        font-family: "Irish Grover", system-ui;
-       margin: 0;
-       padding: 0;
    
-}
-
-.navbar {
-
-    background-color: #d8dfebc0;
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
-    top: 0;
-    width: 100%;
-    height: 70px;
-
-}
-
-.navbar a {
-
-    display: inline;
-    color: rgb(0, 0, 0);
-    text-decoration: none;
-    padding: 25px 25px;
-    text-align: center;
-    font-size: 25px;
-
-}
-
-.navbar a:hover {
-    background: #FBC64F;
-    color: rgb(255, 255, 255);
-    border-radius: 15px;
-    height: auto;
-
-}
-
-#logo {
-    display: flex;
-    justify-content: start;
-    float: left;
-    height: 65px;
-
-
-}
-
-
-#btn_login {
-    background-color: #FBC64F;
-    font-size: 21px;
-    font-family: "Irish Grover", system-ui;
-    font-style: normal;
-    width: 6vw;
-    height: 1.5vh;
-    border: none;
-    border-radius: 10px;
-    padding: 20px;
-    margin-bottom: 5px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-#btn_cadastro {
-    background-color: #ED2F2F;
-    padding: 20px;
-    margin-bottom: 5px;
-    font-size: 21px;
-    font-family: "Irish Grover", system-ui;
-    font-style: normal;
-    width: 6vw;
-    height: 1.5vh;
-    border: none;
-    border-radius: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
 }
 
 button {
@@ -180,9 +105,7 @@ button:hover{
 
 }
 
-#pontuacaoFinalJogo, #pontuacaoDuranteJogo{
-    display: none;
-}
+
 
 .flex-colunar{
     background-color: #F7FAE7;
@@ -196,6 +119,8 @@ button:hover{
 
 
 
-.pontuacao{
- margin: 300px;
+#pontuacao{
+ margin: 5px;
+ border-radius: 20px;
+ border-color: #4B2E17;
 }
