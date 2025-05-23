@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Irish+Grover&display=swap" rel="stylesheet">
+  <title>Galeria de Quiz</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #F7FAE7;
+      font-family: "Irish Grover", system-ui;
+    }
+    h1 {
+      text-align: center;
+    }
+    .container {
+      border: 5px solid#D9D9D9;
+      border-radius: 25px;
+      display: flex;
+      justify-content: space-around;
+      flex-wrap: wrap;
+      padding: 20px;
+      justify-self: center;
+     
+
+      
+    }
+
+    .card a {
+      display: block;
+      width: 100%;
+      height: 100%;
+      text-decoration: none;
+    }
+
+ 
+.card {
+    width: 300px;
+      height: 200px;
+      background-size: cover;
+      background-repeat: no-repeat;
+      margin: 10px;
+      position: relative;
+      border-radius: 10px;
+      overflow: hidden;
+       transition: 0.5s; 
+}
+.card:hover{
+    transform: scale(1.1); 
+}
+
+
+
+
+.navbar {
+
+   background-color: #D9D9D9;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    top: 0;
+    width: 100%;
+    height: 70px;
+
+}
+
+.navbar a {
+
+    display: inline;
+    color: rgb(0, 0, 0);
+    text-decoration: none;
+    padding: 25px 25px;
+    text-align: center;
+    font-size: 25px;
+
+}
+
+.navbar a:hover {
+    background: #FBC64F;
+    color: rgb(255, 255, 255);
+    border-radius: 15px;
+    height: auto;
+
+}
+
+#logo {
+    display: flex;
+    justify-content: start;
+    float: left;
+    height: 65px;
+
+
+}
+
+
+#btn_login {
+    background-color: #FBC64F;
+    font-size: 21px;
+    font-family: "Irish Grover", system-ui;
+    font-style: normal;
+    width: 6vw;
+    height: 1.5vh;
+    border: none;
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#btn_cadastro {
+    background-color: #ED2F2F;
+    padding: 20px;
+    margin-bottom: 5px;
+    font-size: 21px;
+    font-family: "Irish Grover", system-ui;
+    font-style: normal;
+    width: 6vw;
+    height: 1.5vh;
+    border: none;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+h3{
+    color: #4B2E17 ;
+    text-align: center;
+    padding: 10p 10px;
+ 
+ 
+}
+
+  </style>
+</head>
+<body>
+    <div class="navbar">
+        <img id="logo" src="../public/assets/imgs/logo-pooh-removebg-preview (1).png" >
+        <nav>
+
+            <a href="tela-quiz.html">Quiz</a>
+            <a href="../public/index.html">Tela inial</a>
+            <a href="#dashboard">Dashboard</a>
+            <a href="#conteudo">Conteudos</a>
+
+        </nav>
+        <a href="cadastro.html" id="btn_cadastro" onclick="cadastrar()"> Cadastro</a>
+           <a href="login.html" id="btn_login" onclick="login()">Login</a>
+       
+
+    </div>
+  <h1>Galeria de Quiz</h1>
+  <div class="container">
+    <div class="card" style="background-image: url('img/Thumbnail\ \(2\).png');">
+      <a href="quiz-bosque.html" title="Quiz do Bosque"><h3>Bosque dos cem Acres</h3></a>
+    </div>
+
+    <div class="card" style="background-image: url('img/Thumbnail\ \(5\).png');">
+      <a href="quiz-conhece.html" title="Quiz para saber qual personagem você mais conhece"><h3>Personagem que você mais conhece</h3></a>
+    </div>
+
+    <div class="card" style="background-image: url('img/ursinhos-verdadeiros\ 1.png');">
+      <a href="quiz-curiosidade.html" title="Quiz sobre curiosidades"><h3>Curiosidades</h3></a>
+    </div>
+  </div>
+</body>
+</html>
