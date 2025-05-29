@@ -66,6 +66,19 @@ button:hover{
     padding: 8px;
 }
 
+.btn_quiz{
+   display: inline;
+    color: rgb(0, 0, 0);
+    text-decoration: none;
+    padding: 25px 25px;
+    text-align: center;
+     font-size: 25px;
+    background: #FBC64F;
+
+   
+
+}
+
 .text-bold {
     font-weight: bold;
 }
