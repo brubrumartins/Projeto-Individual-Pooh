@@ -27,7 +27,7 @@ body {
    
 }
 
-button {
+.btn {
     background-color: #95a9ff;
     font-family: "Irish Grover", system-ui;
     font-style: normal;
@@ -42,7 +42,7 @@ button {
     justify-content: center;
 }
 
-button:hover{
+.btn:hover{
     background-color: #cfd7e7;
 }
 .flex-colunar {
@@ -73,8 +73,7 @@ button:hover{
     padding: 25px 25px;
     text-align: center;
      font-size: 25px;
-    background: #FBC64F;
-
+    border-radius: 2vh;
    
 
 }

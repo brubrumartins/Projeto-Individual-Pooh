@@ -1,14 +1,14 @@
 var medidaModel = require("../models/medidaModel");
 
-function buscarUltimasMedidas(req, res) {
+function buscarUltimasMedidasConhece(req, res) {
 
     const limite_linhas = 7;
 
-    var idAquario = req.params.idAquario;
+    var idResultado = req.params.idResultado;
 
     console.log(`Recuperando as ultimas ${limite_linhas} medidas`);
 
-    medidaModel.buscarUltimasMedidas(idAquario, limite_linhas).then(function (resultado) {
+    medidaModel.buscarUltimasMedidasConhece(idResultado, limite_linhas).then(function (resultado) {
         if (resultado.length > 0) {
             res.status(200).json(resultado);
         } else {
@@ -21,14 +21,93 @@ function buscarUltimasMedidas(req, res) {
     });
 }
 
+function buscarUltimasMedidasBosque(req, res) {
 
-function buscarMedidasEmTempoReal(req, res) {
+    const limite_linhas = 7;
 
-    var idAquario = req.params.idAquario;
+    var idResultado = req.params.idResultado;
+
+    console.log(`Recuperando as ultimas ${limite_linhas} medidas`);
+
+    medidaModel.buscarUltimasMedidasBosque(idResultado, limite_linhas).then(function (resultado) {
+        if (resultado.length > 0) {
+            res.status(200).json(resultado);
+        } else {
+            res.status(204).send("Nenhum resultado encontrado!")
+        }
+    }).catch(function (erro) {
+        console.log(erro);
+        console.log("Houve um erro ao buscar as ultimas medidas.", erro.sqlMessage);
+        res.status(500).json(erro.sqlMessage);
+    });
+}
+
+function buscarUltimasMedidasCuriosidade(req, res) {
+
+    const limite_linhas = 7;
+
+    var idResultado = req.params.idResultado;
+
+    console.log(`Recuperando as ultimas ${limite_linhas} medidas`);
+
+    medidaModel.buscarUltimasMedidasCuriosidade(idResultado, limite_linhas).then(function (resultado) {
+        if (resultado.length > 0) {
+            res.status(200).json(resultado);
+        } else {
+            res.status(204).send("Nenhum resultado encontrado!")
+        }
+    }).catch(function (erro) {
+        console.log(erro);
+        console.log("Houve um erro ao buscar as ultimas medidas.", erro.sqlMessage);
+        res.status(500).json(erro.sqlMessage);
+    });
+}
+
+function buscarMedidasEmTempoRealConhece(req, res) {
+
+    var idResultado = req.params.idResultado;
 
     console.log(`Recuperando medidas em tempo real`);
 
-    medidaModel.buscarMedidasEmTempoReal(idAquario).then(function (resultado) {
+    medidaModel.buscarMedidasEmTempoRealConhece(idResultado).then(function (resultado) {
+        if (resultado.length > 0) {
+            res.status(200).json(resultado);
+        } else {
+            res.status(204).send("Nenhum resultado encontrado!")
+        }
+    }).catch(function (erro) {
+        console.log(erro);
+        console.log("Houve um erro ao buscar as ultimas medidas.", erro.sqlMessage);
+        res.status(500).json(erro.sqlMessage);
+    });
+}
+
+function buscarMedidasEmTempoRealBosque(req, res) {
+
+    var idResultado = req.params.idResultado;
+
+    console.log(`Recuperando medidas em tempo real`);
+
+    medidaModel.buscarMedidasEmTempoRealBosque(idResultado).then(function (resultado) {
+        if (resultado.length > 0) {
+            res.status(200).json(resultado);
+        } else {
+            res.status(204).send("Nenhum resultado encontrado!")
+        }
+    }).catch(function (erro) {
+        console.log(erro);
+        console.log("Houve um erro ao buscar as ultimas medidas.", erro.sqlMessage);
+        res.status(500).json(erro.sqlMessage);
+    });
+}
+
+function buscarMedidasEmTempoRealCuriosidade(req, res) {
+
+    var idResultado = req.params.idResultado;
+
+    console.log(`Recuperando medidas em tempo real`);
+
+    medidaModel.buscarMedidasEmTempoRealCuriosidade(idResultado).then(function (resultado) {
         if (resultado.length > 0) {
             res.status(200).json(resultado);
         } else {
@@ -42,7 +121,11 @@ function buscarMedidasEmTempoReal(req, res) {
 }
 
 module.exports = {
-    buscarUltimasMedidas,
-    buscarMedidasEmTempoReal
+    buscarUltimasMedidasConhece,
+    buscarUltimasMedidasBosque,
+    buscarUltimasMedidasCuriosidade,
+    buscarMedidasEmTempoRealBosque,
+    buscarMedidasEmTempoRealConhece,
+    buscarMedidasEmTempoRealCuriosidade
 
 }

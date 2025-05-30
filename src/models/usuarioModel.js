@@ -25,7 +25,7 @@ function quiz(correta, errado, fkUsuario) {
     console.log("ACESSEI O USUARIO MODEL \n\n function quiz():", fkUsuario,  correta, errado);
 
     var instrucaoSql = `
-        INSERT INTO resultado (result_certo, result_errado, fkUsuario, fkQuiz)
+        INSERT INTO resultado (result_certo, result_errado, fkUsuario)
         VALUES (${correta}, ${errado}, ${fkUsuario});
     `;
 
@@ -33,8 +33,33 @@ function quiz(correta, errado, fkUsuario) {
     return database.executar(instrucaoSql);
 }
 
+function quiz_conhece(correta, errado, fkUsuario) {
+    console.log("ACESSEI O USUARIO MODEL \n\n function quiz_conhece():", fkUsuario,  correta, errado);
+
+    var instrucaoSql = `
+        INSERT INTO resultado (result_certo, result_errado, fkUsuario)
+        VALUES (${correta}, ${errado}, ${fkUsuario});
+    `;
+
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
+function quiz_curiosidade(correta, errado, fkUsuario) {
+    console.log("ACESSEI O USUARIO MODEL \n\n function quiz_curiosidade():", fkUsuario,  correta, errado);
+
+    var instrucaoSql = `
+        INSERT INTO resultado (result_certo, result_errado, fkUsuario)
+        VALUES (${correta}, ${errado}, ${fkUsuario});
+    `;
+
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
 module.exports = {
     autenticar,
     cadastrar,
-    quiz
+    quiz,
+    quiz_conhece,
+    quiz_curiosidade
 };
