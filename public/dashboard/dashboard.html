@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,47 +10,186 @@
     <link rel="stylesheet" href="../css/dashboards.css">
     <title>Dashboard</title>
 </head>
+
 <body>
 
-   <div class="container-geral">
-        <div class="usuario">
-            <div class="user-box">
-                <img class="img-user" src="../assets/user.svg" alt="">
+    <div class="usuario">
+        <div class="user-box">
+            <img class="img-user" src="../assets/imgs/logo-pooh-removebg-preview (1).png"
+                style="height: 9vh; width: 13vw; margin: 10px;" alt="">
 
-                <h6 class="name" style="font-size: large;">Nome do usuário</h6>
-                <div class="opt-row">
-                    <img class="opt-img" src="../assets/bars.svg" alt="">
-                    <a href="" class="but-usuario">
-                        <h6 style="font-size: small;">Dashboards</h6>
-                </div></a>
-                <div class="opt-row"><img class="opt-img" src="../assets/store.png" alt="">
-                    <a href="" class="but-usuario">
-                        <h6 class="setor-icon" style="font-size: small;">Setores</h6>
-                    </a>
-                </div>
-                <div class="opt-row">
-                    <img class="opt-img" src="../assets/config.svg" alt="">
-                    <a href="" class="but-usuario">
-                        <h6 style="font-size: small;">Configuracoes</h6>
-                    </a>
-                </div>
-                <!-- colocar link para ferramenta help-desk abaixo -->
-                <div class="opt-row">
-                    <img class="opt-img" src="../assets/config.svg" alt="">
-                    <a href="" class="but-usuario">
-                        <h6 style="font-size: small;"> Suporte? </h6>
-                    </a>
-                </div>
+            <h6 class="name" style="font-size: large;">Olá, <b id="usuarioo">Nome do usuário</b> </h6>
+            <div class="opt-row">
 
-                <div class="opt-row">
-                    <img class="opt-img" src="../assets/logOut.svg" alt="">
-                    <a class="but-usuario" href="../login.html">
-                        <h6 style="font-size: small;">Sair</h6>
-                    </a>
-                </div>
+                <a href="../indexlogado.html" class="but-usuario">
+                    <h6 class="txt-nav">Tela Iicial</h6>
+            </div></a>
+            <div class="opt-row">
+                <a href="../tela-quiz.html" class="but-usuario">
+                    <h6 class="txt-nav">Quiz</h6>
+                </a>
+
 
             </div>
 
-    
+
+
+
+        </div>
+
+
+
+
+
+
+        <div class="container-kpi">
+            <div class="kpi">
+                <h3>Média de Acertos</h3>
+            </div>
+
+            <div class="kpi">
+                <h3>Média de Erros</h3>
+            </div>
+
+            <div class="kpi">
+                <h3>Total de Quiz</h3>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="grafico">
+        <canvas id="myChart"></canvas>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    </div>
 </body>
+<script>
+
+    usuarioo.innerHTML = sessionStorage.NOME_USUARIO;
+    const ctx = document.getElementById('myChart');
+
+   /* new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: ['Acertos', 'Erros'],
+            datasets: [{
+                label: 'Pontuação',
+                data: [12, 19, 3, 5, 2, 3],
+                borderColor: '#c1a5e2',
+                backgroundColor: '#c7b7db',
+                borderWidth: 3
+            }]
+        },
+        options: {
+            responsive: false,
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });*/
+
+
+ function obterDadosGrafico(idResultado) {
+
+        alterarTitulo(idResultado)
+
+        if (proximaAtualizacao != undefined) {
+            clearTimeout(proximaAtualizacao);
+        }
+
+        fetch(`/medidas/ultimas/${idResultado}`, { cache: 'no-store' }).then(function (response) {
+            if (response.ok) {
+                response.json().then(function (resposta) {
+                    console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+                    resposta.reverse();
+
+                    plotarGrafico(resposta, idResultado);
+
+                });
+            } else {
+                console.error('Nenhum dado encontrado ou erro na API');
+            }
+        })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+            });
+    }
+
+    // Esta função *plotarGrafico* usa os dados capturados na função anterior para criar o gráfico
+    // Configura o gráfico (cores, tipo, etc), materializa-o na página e, 
+    // A função *plotarGrafico* também invoca a função *atualizarGrafico*
+    function plotarGrafico(resposta, idResultado) {
+
+        console.log('iniciando plotagem do gráfico...');
+
+        // Criando estrutura para plotar gráfico - labels
+        let labels = [];
+
+        // Criando estrutura para plotar gráfico - dados
+        let dados = {
+            labels: labels,
+            datasets: [{
+                label: 'Acertos',
+                data: [],
+                fill: false,
+                 borderColor: '#c1a5e2',
+                backgroundColor: '#c7b7db',
+                borderWidth: 3,
+                tension: 0.1
+            },
+            {
+                label: 'Erros',
+                data: [],
+                fill: false,
+               borderColor: '#c1a5e2',
+                backgroundColor: '#c7b7db',
+                borderWidth: 3,
+                tension: 0.1
+            }]
+        };
+
+        console.log('----------------------------------------------')
+        console.log('Estes dados foram recebidos pela funcao "obterDadosGrafico" e passados para "plotarGrafico":')
+        console.log(resposta)
+
+        // Inserindo valores recebidos em estrutura para plotar o gráfico
+        for (i = 0; i < resposta.length; i++) {
+            var registro = resposta[i];
+            labels.push(registro.momento_grafico);
+            dados.datasets[0].data.push(registro.Acertoa);
+            dados.datasets[1].data.push(registro.Erros);
+        }
+
+        console.log('----------------------------------------------')
+        console.log('O gráfico será plotado com os respectivos valores:')
+        console.log('Labels:')
+        console.log(labels)
+        console.log('Dados:')
+        console.log(dados.datasets)
+        console.log('----------------------------------------------')
+
+        // Criando estrutura para plotar gráfico - config
+        const config = {
+            type: 'line',
+            data: dados,
+        };
+
+        // Adicionando gráfico criado em div na tela
+        let myChart = new Chart(
+            document.getElementById(`myChartCanvas${idResultado}`),
+            config
+        );
+
+        setTimeout(() => atualizarGrafico(idResultado, dados, myChart), 2000);
+    }
+
+
+
+
+     
+
+</script>
+
 </html>
