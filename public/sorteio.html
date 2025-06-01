@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="pt">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href="https://fonts.googleapis.com/css2?family=Irish+Grover&display=swap" rel="stylesheet">
+    <title>Sorteio do seu personagem do dia!</title>
+</head>
+<style>
+    body {
+        margin: 0;
+
+        font-family: "Irish Grover", system-ui;
+        font-weight: 400;
+        font-style: normal;
+        background-color: #F7FAE7;
+
+
+    }
+
+    #sort_perso {
+        margin: 80px;
+        padding: 10px;
+        text-align: center;
+        background-color: #D9D9D9;
+        height: 75vh;
+        width: 60vw;
+        border-radius: 15px;
+        justify-self: center;
+
+    }
+
+    .conteudo {
+        display: flex;
+        justify-self: center;
+    }
+
+    #img_perso {
+        height: 140px;
+        width: 170px;
+        justify-self: center;
+
+    }
+
+    ul,
+    li {
+        justify-items: center;
+    }
+
+    #but_perso {
+        font-size: 15px;
+        font-family: "Irish Grover", system-ui;
+        background-color: #FBC64F;
+        width: 9vw;
+        height: 8vh;
+        border: none;
+        border-radius: 10px;
+        padding: 5px;
+        margin-bottom: 5px;
+    }
+</style>
+
+<body>
+    <section class="conteudo" id="conteudo">
+        <div id="sort_perso">
+            <h2>Sorteie seu personagem do dia!</h2>
+            <button onclick="sortearPersonagem()" id="but_perso">Pensa...Pensa</button>
+            <p id="personagem-sorteado"></p>
+            <img id="img_perso">
+
+            <h3>Todos os personagens que podem cair:</h3>
+            <ul id="listar"></ul>
+        </div>
+    </section>
+
+
+</body>
+
+</html>
+<script>
+    function quizz() {
+        window.location.href = "tela-quiz.html"
+
+    }
+    var vt_personagem = [
+        { nome: 'Pooh', imagem: 'assets/imgs/pooh-mel-removebg-preview.png' },
+        { nome: 'Leitão', imagem: 'assets/imgs/leitao-2106.png' },
+        { nome: 'Tigrão', imagem: 'assets/imgs/tigrao.png' },
+        { nome: 'Ió', imagem: 'assets/imgs/bisonho.png' },
+        { nome: 'Guru', imagem: 'assets/imgs/guru.png' },
+        { nome: 'Corujão', imagem: 'assets/imgs/corujao.png' },
+        { nome: 'Abel', imagem: 'assets/imgs/abel.png' }
+    ];
+
+    var lista = '';
+
+    for (var i = 0; i < vt_personagem.length; i++) {
+        lista += `<li>${vt_personagem[i].nome}</li>`;
+    }
+
+    document.getElementById('listar').innerHTML = lista;
+
+
+
+
+    function sortearPersonagem() {
+        var hoje = new Date().toDateString();
+        var ultimoSorteio = localStorage.getItem('dataSorteio');
+
+       // if (ultimoSorteio === hoje) {
+       //     alert("Você já sorteou um personagem hoje! Tente novamente amanhã.");
+     //   } else {
+
+            var indice = Math.floor(Math.random() * vt_personagem.length);
+            var personagem = vt_personagem[indice];
+
+            document.getElementById("personagem-sorteado").textContent = " Hoje você tá mais para: " + personagem.nome + "!";
+
+            var img = document.getElementById("img_perso");
+            img.src = personagem.imagem;
+            img.alt = personagem.nome;
+            img.style.display = "block";
+
+          //  localStorage.setItem('dataSorteio', hoje);
+        }
+    //}
+</script>

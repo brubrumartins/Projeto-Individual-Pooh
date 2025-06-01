@@ -68,7 +68,7 @@
     usuarioo.innerHTML = sessionStorage.NOME_USUARIO;
     const ctx = document.getElementById('myChart');
 
-   /* new Chart(ctx, {
+    new Chart(ctx, {
         type: 'bar',
         data: {
             labels: ['Acertos', 'Erros'],
@@ -88,8 +88,11 @@
                 }
             }
         }
-    });*/
+    });
 
+let proximaAtualizacao;
+
+    window.onload = exibirAquariosDoUsuario();
 
  function obterDadosGrafico(idResultado) {
 

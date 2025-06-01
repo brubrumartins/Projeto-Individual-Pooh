@@ -288,6 +288,8 @@
     }
 
     function finalizar() {
+
+        
         let textoParaMensagemFinal = null
         let classComCoresParaMensagemFinal = null
         const porcentagemFinalDeAcertos = pontuacaoFinal / quantidadeDeQuestoes
@@ -323,6 +325,7 @@
         sessionStorage.setItem("erros", erradas);
 
         quiz_curiosidade();
+         window.location.href = "dashboard/dashboard.html"
 
     }
 
