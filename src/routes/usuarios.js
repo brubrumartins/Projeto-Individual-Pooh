@@ -23,4 +23,7 @@ router.post("/quiz_conhece", function (req, res) {
 router.post("/quiz_curiosidade", function (req, res) {
     usuarioController.quiz_curiosidade(req, res);
 });
+
+
 module.exports = router;
+

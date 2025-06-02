@@ -56,6 +56,7 @@ function quiz_curiosidade(correta, errado, fkUsuario) {
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
 }
+
 module.exports = {
     autenticar,
     cadastrar,

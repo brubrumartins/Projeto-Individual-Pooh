@@ -3,7 +3,7 @@ body {
   padding: 0;
   font-family: "Irish Grover", system-ui;
   background-color: #F7FAE7;
-  overflow: hidden;
+
 
 }
 
@@ -78,15 +78,16 @@ a {
 }
 
 
-#myChart {
+#barra {
   display: flex;
   position: relative;
-  background-color: #D9D9D9;
+  background-color: #e9e8e8;
   border-radius: 15px;
   padding: 20px;
   height: 18vh;
-  width: 68vw;
+  width: 65vw;
   justify-self: center;
+  
 }
 
 .grafico {

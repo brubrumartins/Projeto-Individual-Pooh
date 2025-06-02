@@ -25,4 +25,11 @@ router.get("/tempo-real/:curiosidade", function (req, res) {
     medidaController.buscarMedidasEmTempoRealCuriosidade(req, res);
 })
 
+router.get("/obterDados", function (req, res) {
+   medidaController.obterDados(req, res);
+});
+router.get("/plotarGraficoBarra", function (req, res) {
+   medidaController.plotarGraficoBarra(req, res);
+});
+
 module.exports = router;

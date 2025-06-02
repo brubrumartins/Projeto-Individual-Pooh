@@ -8,6 +8,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Irish+Grover&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../css/dashboards.css">
+     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <title>Dashboard</title>
 </head>
 
@@ -59,16 +60,88 @@
     </div>
 
     <div class="grafico">
-        <canvas id="myChart"></canvas>
-        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+         <canvas id="barra"></canvas>
+       
     </div>
 </body>
 <script>
+    var certas = sessionStorage.result_certo
+window.onload= ()=> {obterDados()};
 
     usuarioo.innerHTML = sessionStorage.NOME_USUARIO;
-    const ctx = document.getElementById('myChart');
+  
+     function obterDados() {
+
+
+        fetch(`/medidas/obterDados`, { cache: 'no-store' }).then(function (response) {
+            if (response.ok) {
+                response.json().then(function (resultado) {
+                    console.log(`Dados recebidos: ${JSON.stringify(resultado)}`);
+                    resultado.reverse();
+
+                    plotarGrafico(resultado);
+
+                });
+            } else {
+                console.error('Nenhum dado encontrado ou erro na API');
+            }
+        })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+            });
+    }
+  
+  
+
+ function plotarGrafico(resultado) {
+    console.log('iniciando plotagem do gráfico...');
+
+    let labels = [];
+    let dadosAcertos = [];
+    let dadosErros = [];
+
+    for (let i = 0; i < resultado.length; i++) {
+        labels.push(`Tentativa ${i + 1}`);
+        dadosAcertos.push(resultado[i].result_certo);
+        dadosErros.push(resultado[i].result_errado);
+    }
+
+    const ctx = document.getElementById('barra').getContext('2d');
 
     new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: labels,
+            datasets: [
+                {
+                    label: 'Acertos',
+                    data: dadosAcertos,
+                    borderColor: '#332b19',
+                backgroundColor: '#FBC64F',
+                borderWidth: 2
+                },
+                {
+                    label: 'Erros',
+                    data: dadosErros,
+                   borderColor: '#332b19',
+                backgroundColor: '#ED2F2F',
+                borderWidth: 2
+                }
+            ]
+        },
+        options: {
+            responsive: false
+          
+        }
+    });
+}
+
+  
+  
+  
+  
+  
+    /*  new Chart(ctx, {
         type: 'bar',
         data: {
             labels: ['Acertos', 'Erros'],
@@ -88,105 +161,12 @@
                 }
             }
         }
-    });
+    });*/
 
-let proximaAtualizacao;
 
-    window.onload = exibirAquariosDoUsuario();
 
- function obterDadosGrafico(idResultado) {
 
-        alterarTitulo(idResultado)
 
-        if (proximaAtualizacao != undefined) {
-            clearTimeout(proximaAtualizacao);
-        }
-
-        fetch(`/medidas/ultimas/${idResultado}`, { cache: 'no-store' }).then(function (response) {
-            if (response.ok) {
-                response.json().then(function (resposta) {
-                    console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
-                    resposta.reverse();
-
-                    plotarGrafico(resposta, idResultado);
-
-                });
-            } else {
-                console.error('Nenhum dado encontrado ou erro na API');
-            }
-        })
-            .catch(function (error) {
-                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
-            });
-    }
-
-    // Esta função *plotarGrafico* usa os dados capturados na função anterior para criar o gráfico
-    // Configura o gráfico (cores, tipo, etc), materializa-o na página e, 
-    // A função *plotarGrafico* também invoca a função *atualizarGrafico*
-    function plotarGrafico(resposta, idResultado) {
-
-        console.log('iniciando plotagem do gráfico...');
-
-        // Criando estrutura para plotar gráfico - labels
-        let labels = [];
-
-        // Criando estrutura para plotar gráfico - dados
-        let dados = {
-            labels: labels,
-            datasets: [{
-                label: 'Acertos',
-                data: [],
-                fill: false,
-                 borderColor: '#c1a5e2',
-                backgroundColor: '#c7b7db',
-                borderWidth: 3,
-                tension: 0.1
-            },
-            {
-                label: 'Erros',
-                data: [],
-                fill: false,
-               borderColor: '#c1a5e2',
-                backgroundColor: '#c7b7db',
-                borderWidth: 3,
-                tension: 0.1
-            }]
-        };
-
-        console.log('----------------------------------------------')
-        console.log('Estes dados foram recebidos pela funcao "obterDadosGrafico" e passados para "plotarGrafico":')
-        console.log(resposta)
-
-        // Inserindo valores recebidos em estrutura para plotar o gráfico
-        for (i = 0; i < resposta.length; i++) {
-            var registro = resposta[i];
-            labels.push(registro.momento_grafico);
-            dados.datasets[0].data.push(registro.Acertoa);
-            dados.datasets[1].data.push(registro.Erros);
-        }
-
-        console.log('----------------------------------------------')
-        console.log('O gráfico será plotado com os respectivos valores:')
-        console.log('Labels:')
-        console.log(labels)
-        console.log('Dados:')
-        console.log(dados.datasets)
-        console.log('----------------------------------------------')
-
-        // Criando estrutura para plotar gráfico - config
-        const config = {
-            type: 'line',
-            data: dados,
-        };
-
-        // Adicionando gráfico criado em div na tela
-        let myChart = new Chart(
-            document.getElementById(`myChartCanvas${idResultado}`),
-            config
-        );
-
-        setTimeout(() => atualizarGrafico(idResultado, dados, myChart), 2000);
-    }
 
 
 
