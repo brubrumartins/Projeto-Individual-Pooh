@@ -30,9 +30,26 @@ function buscarUltimasMedidasBosque(idResultado, limite_linhas) {
     return database.executar(instrucaoSql);
 }
 
-function obterDados() {
+function obterDados(fkUsuario) {
+    var instrucaoSql = `
+        SELECT r.result_certo, r.result_errado 
+        FROM resultado r
+        JOIN usuario u ON r.fkUsuario = u.idUsuario
+        WHERE r.fkUsuario = ${fkUsuario}
+        ORDER BY r.idResultado DESC;
+    `;
 
-    var instrucaoSql = `SELECT resultado.result_certo, resultado.result_errado from resultado ORDER BY idResultado DESC limit 10 ;`;
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
+
+function kpiMacertos(fkUsuario) {
+
+    var instrucaoSql = `SELECT ROUND(AVG(result_certo), 2) as mediaAcerto, 
+ROUND(AVG(result_errado), 2) as mediaErro, COUNT(idResultado) as qntQuiz
+ FROM resultado JOIN usuario ON resultado.fkUsuario = usuario.idUsuario
+    WHERE resultado.fkUsuario = ${fkUsuario};`;
 
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
@@ -40,9 +57,13 @@ function obterDados() {
 
 
 
+
+
 module.exports = {
     buscarUltimasMedidasConhece,
     buscarUltimasMedidasBosque,
     buscarUltimasMedidasCuriosidade,
-    obterDados
+    obterDados,
+    kpiMacertos
+   
 }

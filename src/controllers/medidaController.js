@@ -121,14 +121,12 @@ function buscarMedidasEmTempoRealCuriosidade(req, res) {
 }
 function obterDados(req, res) {
 
-    const limite_linhas = 2;
 
-    var idResultado = req.params.idResultado;
-    var certas = req.params.result_certas;
+    var fkUsuario = req.params.fkUsuario
 
-    console.log(`Recuperando as ultimas ${limite_linhas} medidas`);
 
-    medidaModel.obterDados(idResultado, limite_linhas,certas).then(function (resultado) {
+
+    medidaModel.obterDados(fkUsuario).then(function (resultado) {
         if (resultado.length > 0) {
             res.status(200).json(resultado);
         } else {
@@ -141,6 +139,32 @@ function obterDados(req, res) {
     });
 }
 
+function kpiMacertos(req, res) {
+
+    var fkUsuario = req.params.fkUsuario
+
+
+   // const limite_linhas = 2;
+
+   
+   
+
+    // console.log(`Recuperando as ultimas ${limite_linhas} medidas`);
+
+    medidaModel.kpiMacertos(fkUsuario).then(function (resultado) {
+        if (resultado.length > 0) {
+            res.status(200).json(resultado);
+        } else {
+            res.status(204).send("Nenhum resultado encontrado!")
+        }
+    }).catch(function (erro) {
+        console.log(erro);
+        console.log("Houve um erro ao buscar as ultimas medidas.", erro.sqlMessage);
+        res.status(500).json(erro.sqlMessage);
+    });
+}
+
+
 module.exports = {
     buscarUltimasMedidasConhece,
     buscarUltimasMedidasBosque,
@@ -148,5 +172,6 @@ module.exports = {
     buscarMedidasEmTempoRealBosque,
     buscarMedidasEmTempoRealConhece,
     buscarMedidasEmTempoRealCuriosidade,
-    obterDados
+    obterDados,
+    kpiMacertos
 }

@@ -19,7 +19,7 @@
             <img class="img-user" src="../assets/imgs/logo-pooh-removebg-preview (1).png"
                 style="height: 9vh; width: 13vw; margin: 10px;" alt="">
 
-            <h6 class="name" style="font-size: large;">Olá, <b id="usuarioo">Nome do usuário</b> </h6>
+            <h6 class="name" style="font-size: large;">Olá, <b id="usuarioo">Nome do usuário</b>  <br> Seja Bem vindo(a)!!</h6>
             <div class="opt-row">
 
                 <a href="../indexlogado.html" class="but-usuario">
@@ -46,14 +46,17 @@
         <div class="container-kpi">
             <div class="kpi">
                 <h3>Média de Acertos</h3>
+                <b id="acerto"></b>
             </div>
 
-            <div class="kpi">
+            <div class="kpi" >
                 <h3>Média de Erros</h3>
+                 <b id="erro"></b>
             </div>
 
             <div class="kpi">
                 <h3>Total de Quiz</h3>
+                 <b id="qnt"></b>
             </div>
 
         </div>
@@ -65,19 +68,23 @@
     </div>
 </body>
 <script>
-    var certas = sessionStorage.result_certo
-window.onload= ()=> {obterDados()};
+
+
+// window.onload= ()=> {kpiMacertos()};
+
 
     usuarioo.innerHTML = sessionStorage.NOME_USUARIO;
-  
+    var fkUsuario = sessionStorage.ID_USUARIO;
      function obterDados() {
 
 
-        fetch(`/medidas/obterDados`, { cache: 'no-store' }).then(function (response) {
+        fetch(`/medidas/obterDados/${fkUsuario}`, { cache: 'no-store' }).then(function (response) {
             if (response.ok) {
                 response.json().then(function (resultado) {
                     console.log(`Dados recebidos: ${JSON.stringify(resultado)}`);
                     resultado.reverse();
+
+
 
                     plotarGrafico(resultado);
 
@@ -101,7 +108,7 @@ window.onload= ()=> {obterDados()};
     let dadosErros = [];
 
     for (let i = 0; i < resultado.length; i++) {
-        labels.push(`Tentativa ${i + 1}`);
+        labels.push(`Quiz ${i + 1}`);
         dadosAcertos.push(resultado[i].result_certo);
         dadosErros.push(resultado[i].result_errado);
     }
@@ -136,39 +143,36 @@ window.onload= ()=> {obterDados()};
     });
 }
 
-  
-  
-  
-  
-  
-    /*  new Chart(ctx, {
-        type: 'bar',
-        data: {
-            labels: ['Acertos', 'Erros'],
-            datasets: [{
-                label: 'Pontuação',
-                data: [12, 19, 3, 5, 2, 3],
-                borderColor: '#c1a5e2',
-                backgroundColor: '#c7b7db',
-                borderWidth: 3
-            }]
-        },
-        options: {
-            responsive: false,
-            scales: {
-                y: {
-                    beginAtZero: true
-                }
+
+function kpiMacertos() {
+
+
+        fetch(`/medidas/kpiMacertos/${fkUsuario}`, { cache: 'no-store' }).then(function (response) {
+            if (response.ok) {
+                response.json().then(function (resultado) {
+                    console.log(`Dados recebidos: ${JSON.stringify(resultado)}`);
+                    resultado.reverse();
+
+                    acerto.innerHTML = ` ${resultado[0].mediaAcerto}`
+                    erro.innerHTML = ` ${resultado[0].mediaErro}`
+                     qnt.innerHTML = ` ${resultado[0].qntQuiz}`
+
+                });
+            } else {
+                console.error('Nenhum dado encontrado ou erro na API');
             }
-        }
-    });*/
+        })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+            });
+    }
+  
+
+    
 
 
 
-
-
-
-
+window.onload= ()=> {obterDados(), kpiMacertos()};
 
 
      
