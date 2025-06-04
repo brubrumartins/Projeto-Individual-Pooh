@@ -25,23 +25,46 @@ result_certo INT,
 result_errado INT
 );
 
-
 INSERT INTO quiz VALUES
 (1, 'Bosque dos cem acres'),
 (2, 'Personagens que mais conhce'),
 (3, 'Curiosidades');
 
 
-SELECT u.nome as "Nome do Jogador(a)", r.result_certo as "Quantidade de acertos", r.result_errado as "Quantidade de erros" from usuario u
-join resultado r on r.fkUsuario = u.idUsuario;
-
-SELECT u.nome as "Nome do Jogador(a)", r.result_certo as "Quantidade de acertos", r.result_errado as "Quantidade de erros", q.idQuiz, q.nome  from usuario u
-join resultado r on r.fkUsuario = u.idUsuario join quiz q on r.fkQuiz = q.idQuiz;
+SELECT usuario.nome as "Nome do Jogador(a)", resultado.result_certo as "Quantidade de acertos", resultado.result_errado as "Quantidade de erros" from usuario
+join resultado on resultado.fkUsuario = usuario.idUsuario;
 
 
+SELECT resultado.result_certo, resultado.result_errado from resultado;
+ 
+SELECT resultado.result_certo, resultado.result_errado from resultado ORDER BY idResultado DESC limit 10 ;
+
+SELECT resultado.result_certo, resultado.result_errado from resultado ORDER BY idResultado DESC limit 10 ;
+
+-- SELECT SUM(resultado.result_certo), SUM(resultado.result_errado) from resultado ;
+
+
+SELECT ROUND(AVG(result_certo), 2), usuario.idUsuario FROM resultado JOIN usuario on usuario.idUsuario = resultado.fkUsuario GROUP BY idUsuario;
+
+SELECT ROUND(AVG(result_errado),2) from resultado;
+
+SELECT COUNT(*) from resultado;
+
+
+truncate table resultado;
 
 select *  from resultado;
 select *  from quiz;
 
 select * from usuario;
 
+SELECT ROUND(AVG(result_certo), 2) as mediaAcerto, 
+ROUND(AVG(result_errado), 2) as mediaErro, COUNT(idResultado)
+ FROM resultado JOIN usuario ON resultado.fkUsuario = usuario.idUsuario
+    WHERE resultado.fkUsuario;
+
+SELECT resultado.result_certo, resultado.result_errado, usuario.idUsuario from resultado JOIN usuario on resultado.fkUsuario = usuario.idUsuario;
+
+
+SELECT ROUND(AVG(result_errado), 2) as mediaErro FROM resultado JOIN usuario ON resultado.fkUsuario = usuario.idUsuario
+    WHERE resultado.fkUsuario

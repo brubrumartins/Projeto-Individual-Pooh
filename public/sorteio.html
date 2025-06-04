@@ -229,9 +229,7 @@ section {
         var hoje = new Date().toDateString();
         var ultimoSorteio = localStorage.getItem('dataSorteio');
 
-       // if (ultimoSorteio === hoje) {
-       //     alert("Você já sorteou um personagem hoje! Tente novamente amanhã.");
-     //   } else {
+      
 
             var indice = Math.floor(Math.random() * vt_personagem.length);
             var personagem = vt_personagem[indice];
@@ -243,7 +241,7 @@ section {
             img.alt = personagem.nome;
             img.style.display = "block";
 
-          //  localStorage.setItem('dataSorteio', hoje);
+          
         }
-    //}
+ 
 </script>

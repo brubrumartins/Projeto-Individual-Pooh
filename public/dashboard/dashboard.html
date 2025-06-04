@@ -77,7 +77,6 @@
 <script>
 
 
-// window.onload= ()=> {kpiMacertos()};
 
 
     usuarioo.innerHTML = sessionStorage.NOME_USUARIO;
@@ -113,6 +112,7 @@
     let labels = [];
     let dadosAcertos = [];
     let dadosErros = [];
+    var totaldeperguntas = dadosAcertos + dadosErros
 
     for (let i = 0; i < resultado.length; i++) {
         labels.push(`Quiz ${i + 1}`);
@@ -163,6 +163,7 @@ function kpiMacertos() {
                     acerto.innerHTML = ` ${resultado[0].mediaAcerto}`
                     erro.innerHTML = ` ${resultado[0].mediaErro}`
                      qnt.innerHTML = ` ${resultado[0].qntQuiz}`
+                     
 
                 });
             } else {
