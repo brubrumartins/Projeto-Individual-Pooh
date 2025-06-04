@@ -277,15 +277,15 @@ input {
 .mim{
     text-align: center;
     background-color: #D9D9D9;
-    height: 48vh;
-    width: 80vw;
+    height: 58vh;
+    width: 60vw;
     font-size: 23px;
     padding: 18px;
     border-radius: 15px;
      text-wrap: auto;
     line-height: 25px;
     margin: 10px;
-    margin-top: 170px;
+    margin-top: 90px;
 }
 
 #btn_dash{
@@ -302,4 +302,8 @@ input {
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+.meu_pooh{
+    margin-top: 50px;
 }
