@@ -46,8 +46,8 @@ function obterDados(fkUsuario) {
 
 function kpiMacertos(fkUsuario) {
 
-    var instrucaoSql = `SELECT ROUND(AVG(result_certo), 2) as mediaAcerto, 
-ROUND(AVG(result_errado), 2) as mediaErro, COUNT(idResultado) as qntQuiz
+    var instrucaoSql = `SELECT SUM(result_certo) as qntAcerto, 
+SUM(result_errado) as qntErro, COUNT(idResultado) as qntQuiz
  FROM resultado JOIN usuario ON resultado.fkUsuario = usuario.idUsuario
     WHERE resultado.fkUsuario = ${fkUsuario};`;
 

@@ -52,18 +52,23 @@
 
         <div class="container-kpi">
             <div class="kpi">
-                <h3>Média de Acertos</h3>
+                <h3>Perguntas acertadas</h3>
                 <b id="acerto"></b>
             </div>
 
             <div class="kpi" >
-                <h3>Média de Erros</h3>
+                <h3>Perguntas erradas</h3>
                  <b id="erro"></b>
             </div>
 
             <div class="kpi">
-                <h3>Total de Quiz</h3>
+                <h3>Total de Quiz Feitos</h3>
                  <b id="qnt"></b>
+            </div>
+
+              <div class="kpi">
+                <h3>Média acertos</h3>
+                 <b id="med"></b>
             </div>
 
         </div>
@@ -75,9 +80,6 @@
     </div>
 </body>
 <script>
-
-
-
 
     usuarioo.innerHTML = sessionStorage.NOME_USUARIO;
     var fkUsuario = sessionStorage.ID_USUARIO;
@@ -112,16 +114,36 @@
     let labels = [];
     let dadosAcertos = [];
     let dadosErros = [];
-    var totaldeperguntas = dadosAcertos + dadosErros
-
+   
+    
     for (let i = 0; i < resultado.length; i++) {
         labels.push(`Quiz ${i + 1}`);
         dadosAcertos.push(resultado[i].result_certo);
         dadosErros.push(resultado[i].result_errado);
     }
+    var somaAcertos = 0;
+    var somaErros = 0;
+
+
+    for (var i = 0; i < dadosAcertos.length; i++) {
+        somaAcertos = somaAcertos + dadosAcertos[i];
+        somaErros   = somaErros   + dadosErros[i];
+    }
+
+    var totalPerguntas = somaAcertos + somaErros;
+    var mediaAcertos = 0;
+
+    if (totalPerguntas > 0) {
+       
+        mediaAcertos = ((somaAcertos / totalPerguntas) * 100);
+      
+        mediaAcertos = mediaAcertos.toFixed(0);
+    }
+
+
+    med.innerHTML = mediaAcertos + '%';
 
     const ctx = document.getElementById('barra').getContext('2d');
-
     new Chart(ctx, {
         type: 'bar',
         data: {
@@ -160,8 +182,8 @@ function kpiMacertos() {
                     console.log(`Dados recebidos: ${JSON.stringify(resultado)}`);
                     resultado.reverse();
 
-                    acerto.innerHTML = ` ${resultado[0].mediaAcerto}`
-                    erro.innerHTML = ` ${resultado[0].mediaErro}`
+                    acerto.innerHTML = ` ${resultado[0].qntAcerto}`
+                    erro.innerHTML = ` ${resultado[0].qntErro}`
                      qnt.innerHTML = ` ${resultado[0].qntQuiz}`
                      
 

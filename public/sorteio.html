@@ -226,11 +226,7 @@ section {
 
 
     function sortearPersonagem() {
-        var hoje = new Date().toDateString();
-        var ultimoSorteio = localStorage.getItem('dataSorteio');
-
-      
-
+        
             var indice = Math.floor(Math.random() * vt_personagem.length);
             var personagem = vt_personagem[indice];
 
@@ -238,8 +234,6 @@ section {
 
             var img = document.getElementById("img_perso");
             img.src = personagem.imagem;
-            img.alt = personagem.nome;
-            img.style.display = "block";
 
           
         }
